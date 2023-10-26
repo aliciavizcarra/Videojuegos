@@ -3,10 +3,7 @@ package com.Game.Videojuegos.Infrastructure.data;
 import com.Game.Videojuegos.Domain.Videojuego;
 import com.Game.Videojuegos.Domain.VideojuegosRepository;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,21 +37,71 @@ public class VideojuegoRepoMysql implements VideojuegosRepository {
 
     @Override
     public Videojuego getVideojuegoFromName(String nombre) {
-        return null;
+
+        Videojuego videojuego = null;
+
+        String consulta = "SELECT * FROM videojuegos WHERE nombre LIKE '" + nombre + "'";
+
+        try {
+            Statement stm = conexionDB.createStatement();
+            ResultSet rs = stm.executeQuery(consulta);
+
+            while (rs.next()){
+                String nombreVideojuego = rs.getString("nombre");
+                String categoria =rs.getString("categoria");
+                int precio = rs.getInt("precio");
+
+                videojuego = new Videojuego(nombreVideojuego,categoria,precio);
+
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return videojuego;
+
     }
 
     @Override
-    public void addVideojuego() {
+    public void addVideojuego(Videojuego videojuego) {
+
+        String consulta = "INSERT INTO videojuegos (`nombre`, `categoria`, `precio`) VALUES ('?', '?', ?)";
+
+        try (PreparedStatement preparedStatement = conexionDB.prepareStatement(consulta)){
+            preparedStatement.setString(1,videojuego.getNombre());
+            preparedStatement.setString(2,videojuego.getCategoria());
+            preparedStatement.setInt(3,videojuego.getPrecio());
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public void actualizarPrecio(Videojuego videojuego, int precio) {
+
+    String consulta = "UPDATE videojuegos SET precio=" + precio + " WHERE nombre LIKE '" + videojuego.getNombre() + "'";
+
+        try {
+            Statement stm = conexionDB.createStatement();
+            stm.executeUpdate(consulta);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
 
     }
 
     @Override
-    public void actualizarPrecio() {
+    public void deleteVideojuego(String nombre){
 
-    }
+        String consulta = "DELETE FROM videojuegos WHERE nombre LIKE '"+ nombre + "'";
 
-    @Override
-    public void deleteVideojuego() {
+        try {
+            Statement stm = conexionDB.createStatement();
+            stm.executeUpdate(consulta);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
 
     }
 }

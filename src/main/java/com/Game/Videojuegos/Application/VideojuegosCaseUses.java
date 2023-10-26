@@ -24,16 +24,16 @@ public class VideojuegosCaseUses {
         return this.videojuegosRepository.getVideojuegoFromName(nombre);
     }
 
-    public void addVideojuego(){
-        this.videojuegosRepository.addVideojuego();
+    public void addVideojuego(Videojuego videojuego){
+        this.videojuegosRepository.addVideojuego(videojuego);
     }
 
-    public void actualizarPrecio(){
-        this.videojuegosRepository.actualizarPrecio();
+    public void actualizarPrecio(Videojuego videojuego, int precio){
+        this.videojuegosRepository.actualizarPrecio(videojuego,precio);
     }
 
-    public void deleteVideojuego(){
-        this.videojuegosRepository.deleteVideojuego();
+    public void deleteVideojuego(String nombre){
+        this.videojuegosRepository.deleteVideojuego(nombre);
     }
 
 

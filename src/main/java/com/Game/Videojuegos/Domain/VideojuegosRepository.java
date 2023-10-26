@@ -8,10 +8,10 @@ public interface VideojuegosRepository {
 
     public Videojuego getVideojuegoFromName(String nombre);
 
-    public void addVideojuego();
+    public void addVideojuego(Videojuego videojuego);
 
-    public void actualizarPrecio();
+    public void actualizarPrecio(Videojuego videojuego, int precio);
 
-    public void deleteVideojuego();
+    public void deleteVideojuego(String nombre);
 
 }
