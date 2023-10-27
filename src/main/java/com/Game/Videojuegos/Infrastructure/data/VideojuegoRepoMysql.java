@@ -65,12 +65,14 @@ public class VideojuegoRepoMysql implements VideojuegosRepository {
     @Override
     public void addVideojuego(Videojuego videojuego) {
 
-        String consulta = "INSERT INTO videojuegos (`nombre`, `categoria`, `precio`) VALUES ('?', '?', ?)";
+        String consulta = "INSERT INTO videojuegos (`nombre`, `categoria`, `precio`) VALUES (?, ?, ?)";
+
 
         try (PreparedStatement preparedStatement = conexionDB.prepareStatement(consulta)){
             preparedStatement.setString(1,videojuego.getNombre());
             preparedStatement.setString(2,videojuego.getCategoria());
             preparedStatement.setInt(3,videojuego.getPrecio());
+            preparedStatement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

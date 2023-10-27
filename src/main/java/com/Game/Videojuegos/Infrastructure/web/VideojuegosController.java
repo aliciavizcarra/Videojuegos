@@ -11,12 +11,11 @@ import java.util.List;
 @RestController
 public class VideojuegosController {
 
-    VideojuegosCaseUses videojuegosCaseUses;
+     VideojuegosCaseUses videojuegosCaseUses;
 
     public VideojuegosController() {
         this.videojuegosCaseUses = new VideojuegosCaseUses(new VideojuegoRepoMysql());
     }
-
 
     @GetMapping("/videojuegos")
     public List<Videojuego> list (){
@@ -40,7 +39,7 @@ public class VideojuegosController {
     }
 
     @PutMapping("/videojuegos/{nombre}")
-    public void actualizarPrecio(@PathVariable String nombre, @RequestParam int precio ){
+    public void actualizarPrecio(@PathVariable String nombre, @RequestParam int precio){
         Videojuego videojuego1 = this.videojuegosCaseUses.getVideojuegoFromNombre(nombre);
         this.videojuegosCaseUses.actualizarPrecio(videojuego1,precio);
     }

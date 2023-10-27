@@ -12,7 +12,7 @@ public class ConexionDB {
     public static Connection getCon() {
 
         try {
-            con= DriverManager.getConnection("jdbc:mysql://futbol-database.c0lchhsfw5fs.us-west-2.rds.amazonaws.com/Futbol\",\"admin\",\"servidor\"");
+            con= DriverManager.getConnection("jdbc:mysql://futbol-database.c0lchhsfw5fs.us-west-2.rds.amazonaws.com/GameBD" ,"admin","servidor");
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
